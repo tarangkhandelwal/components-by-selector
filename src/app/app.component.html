@@ -1,7 +1,16 @@
 <p>
-	Start editing to see some magic happen :)
+	Add a component Dynamically using Dynamic Component Service
 </p>
 
 <button (click)="addDynamicComponent()">Add Dynamic Component</button>
 
 <div #container></div>
+
+<hr>
+
+<p>Create a Dynamic Component using dynamic-selector wrapper component:</p>
+<button (click)="showComponent = true">Create Component</button>
+<app-dynamic-selector *ngIf="showComponent"
+[componentSelector]="'app-dynamic1'"
+[moduleLoaderFunction]="getModuleLoader()"
+></app-dynamic-selector>

@@ -8,7 +8,7 @@ export abstract class BaseModule {
   private selectorToFactoryMap: { [key: string]: ComponentFactory<any> } = null;
   protected abstract dynamicComponents: Type<any>[]; // similar to entryComponents
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) { }
 
   public getComponentFactory(selector: string): ComponentFactory<any> {
     if (!this.selectorToFactoryMap) {

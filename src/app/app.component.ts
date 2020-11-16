@@ -1,5 +1,7 @@
-import { Component, VERSION, ViewChild, ViewContainerRef } from "@angular/core";
-import { DynamicComponentServiceService } from "./common/dynamic-component-service.service";
+import { Component, ComponentRef, VERSION, ViewChild, ViewContainerRef } from "@angular/core";
+import { DynamicComponentService } from "./common/dynamic-component.service";
+
+export interface DynamicContentInputs { [k: string]: any; };
 
 @Component({
   selector: "my-app",
@@ -12,15 +14,27 @@ export class AppComponent {
   @ViewChild("container", { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
 
-  constructor(private componentService: DynamicComponentServiceService) {}
+  showComponent = false;
+  constructor(private componentService: DynamicComponentService) {}
 
   addDynamicComponent() {
-    const componentFactory = this.componentService
+    this.componentService
       .getComponentBySelector("app-dynamic1", () =>
         import("./child1/child1.module").then(m => m.Child1Module)
       )
       .then(componentRef => {
         this.container.insert(componentRef.hostView);
       });
+  }
+
+  getModuleLoader() {
+    return () =>
+    import("./child1/child1.module").then(m => m.Child1Module);
+  }
+
+  addComponentInputs(componentRef: ComponentRef<unknown>, inputs: DynamicContentInputs) {
+    if (componentRef && componentRef.instance && inputs) {
+      Object.keys(inputs).forEach(p => (componentRef.instance[p] = inputs[p]));
+    }
   }
 }

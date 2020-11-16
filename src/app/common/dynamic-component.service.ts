@@ -11,7 +11,7 @@ import { BaseModule } from "./base-module";
 @Injectable({
   providedIn: "root"
 })
-export class DynamicComponentServiceService {
+export class DynamicComponentService {
   constructor(private injector: Injector) {}
 
   getComponentBySelector(
@@ -25,6 +25,8 @@ export class DynamicComponentServiceService {
           any
         > = module.instance.getComponentFactory(componentSelector);
         return compFactory.create(module.injector, [], null, module);
+      } else {
+        throw new Error('Module should extend BaseModule to use "string" based component selector');
       }
     });
   }

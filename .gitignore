@@ -1,0 +1,14 @@
+.idea/
+.npm/
+node_modules/
+Library/
+dist/
+coverage/
+publish/
+**/*.ngfactory.ts
+**/*.ngsummary.json
+**/*.scss.shim.ngstyle.ts
+coverage-final.json
+.DS_Store
+npm-debug.log
+yarn*.tgz
