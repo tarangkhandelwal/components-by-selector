@@ -11,6 +11,7 @@
 <p>Create a Dynamic Component using dynamic-selector wrapper component:</p>
 <button (click)="showComponent = true">Create Component</button>
 <app-dynamic-selector *ngIf="showComponent"
+[inputs]="{inputValue: 'My Input Value'}"
 [componentSelector]="'app-dynamic1'"
 [moduleLoaderFunction]="getModuleLoader()"
 ></app-dynamic-selector>
